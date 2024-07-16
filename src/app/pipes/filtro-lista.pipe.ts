@@ -8,16 +8,16 @@ import { Lista } from '../models/lista.model';
 export class FiltroListaPipe implements PipeTransform {
 
   transform(listas: Lista[], tipo: string): Lista[] {
-    
+
     let lista = [];
-    switch(tipo){
-      case 'por hacer':
-        lista = listas.filter((itemLista) => itemLista.completada == false &&   !itemLista.item.some((itemActividad) => itemActividad.completado == true))
+    switch (tipo) {
+      case 'add list':
+        lista = listas.filter((itemLista) => itemLista.completada == false && !itemLista.item.some((itemActividad) => itemActividad.completado == true))
         break;
-      case 'haciendo':
-        lista = listas.filter((itemLista) => itemLista.completada == false &&   itemLista.item.some((itemActividad) => itemActividad.completado == true));
+      case 'view':
+        lista = listas.filter((itemLista) => itemLista.completada == false && itemLista.item.some((itemActividad) => itemActividad.completado == true));
         break;
-      case 'terminado':
+      case 'settings':
         lista = listas.filter((itemLista) => itemLista.completada == true);
         break;
     }

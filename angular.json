@@ -30,7 +30,10 @@
                 "output": "./svg"
               }
             ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
+            "styles": [
+              "src/theme/variables.scss",
+              "src/global.scss"
+            ],
             "scripts": [],
             "aot": false,
             "vendorChunk": true,
@@ -100,11 +103,6 @@
             "scripts": [],
             "assets": [
               {
-                "glob": "favicon.ico",
-                "input": "src/",
-                "output": "/"
-              },
-              {
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "/assets"
@@ -148,7 +146,8 @@
   "cli": {
     "schematicCollections": [
       "@ionic/angular-toolkit"
-    ]
+    ],
+    "analytics": "be551608-35bf-404e-96cd-4019a13331d4"
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {

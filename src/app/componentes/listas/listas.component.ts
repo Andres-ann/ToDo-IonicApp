@@ -18,35 +18,35 @@ export class ListasComponent implements OnInit {
     public toastController: ToastController,
     public listaService: ListaService,
     private router: Router
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  async AgregarLista(){
+  async AgregarLista() {
     let alerta = await this.alertController.create(
       {
-        header:"Agregar lista",
-        inputs:[
+        header: "Enter Details",
+        inputs: [
           {
             type: "text",
             name: "titulo",
-            placeholder: "Ingrese el nombre de la lista"
+            placeholder: "Enter your details"
           }
         ],
-        buttons:[
+        buttons: [
           {
-            text: "Cancelar",
-            role: "cancel"
+            text: "Cancel",
+            role: "Save"
           },
           {
             text: "Crear",
             handler: (data: any) => {
               let isValid: boolean = this.validInput(data);
-              if(isValid){
+              if (isValid) {
                 let titulo = data.titulo;
                 let wasCreated = this.listaService.crearLista(titulo);
-                if(wasCreated){
-                  this.presentToast("Lista creada correctamente");
+                if (wasCreated) {
+                  this.presentToast("Text field is empty");
                 }
               }
             }
@@ -57,11 +57,11 @@ export class ListasComponent implements OnInit {
     console.log("Hice click!!");
   }
 
-  validInput(input: any): boolean{
-    if(input && input.titulo){
+  validInput(input: any): boolean {
+    if (input && input.titulo) {
       return true;
     }
-    this.presentToast("Debe ingresar un valor");
+    this.presentToast("Please Fill the Field");
     return false;
   }
 
@@ -75,11 +75,11 @@ export class ListasComponent implements OnInit {
     toast.present();
   }
 
-  borrarLista(listaItem: Lista){
+  borrarLista(listaItem: Lista) {
     this.listaService.borrarLista(listaItem);
   }
 
-  async editarLista(listaItem: Lista){
+  async editarLista(listaItem: Lista) {
     let alerta = await this.alertController.create({
       header: "Editar lista",
       inputs: [
@@ -92,8 +92,8 @@ export class ListasComponent implements OnInit {
       ],
       buttons: [
         {
-          text: "Cancelar",
-          role: "cancel"
+          text: "Cancel",
+          role: "Save"
         },
         {
           text: "Editar",
@@ -113,9 +113,9 @@ export class ListasComponent implements OnInit {
     console.log("Click en el boton");
   }
 
-  listaSeleccionada(listaItem: Lista){
+  listaSeleccionada(listaItem: Lista) {
     console.log(listaItem);
-    const URL = '/agregar/'+listaItem.id;
+    const URL = '/agregar/' + listaItem.id;
     this.router.navigateByUrl(URL);
   }
 

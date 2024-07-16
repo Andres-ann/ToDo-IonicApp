@@ -9,38 +9,38 @@ import { ListaService } from '../services/lista.service';
 })
 export class Tab1Page {
 
-  constructor(    
+  constructor(
     public alertController: AlertController,
     public toastController: ToastController,
     private listaService: ListaService
 
-  ) {}
+  ) { }
 
-  async AgregarLista(){
+  async AgregarLista() {
     let alerta = await this.alertController.create(
       {
-        header:"Agregar lista",
-        inputs:[
+        header: "Enter Details",
+        inputs: [
           {
             type: "text",
             name: "titulo",
-            placeholder: "Ingrese el nombre de la lista"
+            placeholder: "Enter your details"
           }
         ],
-        buttons:[
+        buttons: [
           {
-            text: "Cancelar",
-            role: "cancel"
+            text: "Cancel",
+            role: "Save"
           },
           {
             text: "Crear",
             handler: (data: any) => {
               let isValid: boolean = this.validInput(data);
-              if(isValid){
+              if (isValid) {
                 let titulo = data.titulo;
                 let wasCreated = this.listaService.crearLista(titulo);
-                if(wasCreated){
-                  this.presentToast("Lista creada correctamente");
+                if (wasCreated) {
+                  this.presentToast("New item added successfully");
                 }
               }
             }
@@ -51,11 +51,11 @@ export class Tab1Page {
     console.log("Hice click!!");
   }
 
-  validInput(input: any): boolean{
-    if(input && input.titulo){
+  validInput(input: any): boolean {
+    if (input && input.titulo) {
       return true;
     }
-    this.presentToast("Debe ingresar un valor");
+    this.presentToast("Please Fill the Field");
     return false;
   }
 

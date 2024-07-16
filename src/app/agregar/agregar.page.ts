@@ -15,9 +15,9 @@ export class AgregarPage implements OnInit {
   nombreItem: string;
 
   constructor(private router: ActivatedRoute,
-              private listaServices: ListaService,
-              private alertController: AlertController,
-              private toastController: ToastController) { 
+    private listaServices: ListaService,
+    private alertController: AlertController,
+    private toastController: ToastController) {
     let idLista = this.router.snapshot.paramMap.get('idLista');
     this.lista = this.listaServices.obtenerLista(idLista);
     console.log(this.lista);
@@ -26,8 +26,9 @@ export class AgregarPage implements OnInit {
   ngOnInit() {
   }
 
-  agregar(){
-    if(this.nombreItem.length === 0){4
+  agregar() {
+    if (this.nombreItem.length === 0) {
+      4
       return
     }
 
@@ -38,7 +39,7 @@ export class AgregarPage implements OnInit {
     this.nombreItem = ''
   }
 
-  editar(lista:Lista, actividad: Actividad){
+  editar(lista: Lista, actividad: Actividad) {
     console.log("Editar", lista, actividad);
     this.EditarActividad(actividad);
   }
@@ -56,20 +57,21 @@ export class AgregarPage implements OnInit {
       ],
       buttons: [
         {
-          text: "Cancelar",
-          role: "cancel"
+          text: "Cancel",
+          role: "Save"
         },
         {
           text: "Editar",
           handler: (data: any) => {
             let isValid: boolean = this.validInput(data);
             if (isValid) {
+
               let titulo = data.titulo;
               actividad.descripcion = titulo;
               this.listaServices.guardarStorage();
               this.presentToast('Lista editada correctamente!');
             }
-  
+
           }
         }
       ]
@@ -77,15 +79,15 @@ export class AgregarPage implements OnInit {
     await alerta.present();
     console.log("Click en el boton");
   }
-  
+
   validInput(input: any): boolean {
     if (input && input.titulo) {
       return true
     }
-    this.presentToast("Debe ingresar un valor");
+    this.presentToast("Please Fill the Field");
     return false;
   }
-  
+
   async presentToast(mensaje: string): Promise<void> {
     let toast = await this.toastController.create(
       {
@@ -96,22 +98,22 @@ export class AgregarPage implements OnInit {
     toast.present();
   }
 
-  borrar(actividad: Actividad){
+  borrar(actividad: Actividad) {
     this.lista.item = this.lista.item.filter(item => item !== actividad);
     this.listaServices.guardarStorage();
     console.log("Eliminar", actividad);
   }
 
-  cambiacheck(){
+  cambiacheck() {
     const pendientes = this.lista.item.filter(item => item.completado == false).length
-    if(pendientes == 0){
+    if (pendientes == 0) {
       this.lista.completada = true;
       this.lista.terminadaEn = new Date();
     } else {
       this.lista.completada = false;
       this.lista.terminadaEn = null;
     }
-    
+
     this.listaServices.guardarStorage();
   }
 }
